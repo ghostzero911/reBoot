@@ -1,0 +1,20 @@
+[
+    { "id": "zero", "btnRole":"NUMBER", "btnSymbol": "0", "btnKey": "0", "btnStyle": { "gridArea": "5 / 2"} },
+    { "id": "one", "btnRole":"NUMBER", "btnSymbol": "1", "btnKey": "1", "btnStyle": { "gridArea": "4 / 1"} },
+    { "id": "two", "btnRole":"NUMBER", "btnSymbol": "2", "btnKey": "2", "btnStyle": { "gridArea": "4 / 2"} },
+    { "id": "three", "btnRole":"NUMBER", "btnSymbol": "3", "btnKey": "3", "btnStyle": { "gridArea": "4 / 3"} },
+    { "id": "four", "btnRole":"NUMBER", "btnSymbol": "4", "btnKey": "4", "btnStyle": { "gridArea": "3 / 1"} },
+    { "id": "five", "btnRole":"NUMBER", "btnSymbol": "5", "btnKey": "5", "btnStyle": { "gridArea": "3 / 2"} },
+    { "id": "six", "btnRole":"NUMBER", "btnSymbol": "6", "btnKey": "6", "btnStyle": { "gridArea": "3 / 3"} },
+    { "id": "seven", "btnRole":"NUMBER", "btnSymbol": "7", "btnKey": "7", "btnStyle": { "gridArea": "2 / 1"} },
+    { "id": "eight", "btnRole":"NUMBER", "btnSymbol": "8", "btnKey": "8", "btnStyle": { "gridArea": "2 / 2"} },
+    { "id": "nine", "btnRole":"NUMBER", "btnSymbol": "9", "btnKey": "9", "btnStyle": { "gridArea": "2 / 3"} },
+    { "id": "plus", "btnRole":"OPERATOR", "btnSymbol": "+", "btnKey": "+", "btnStyle": { "gridArea": "3 / 4"} },
+    { "id": "minus", "btnRole":"OPERATOR", "btnSymbol": "-", "btnKey": "-", "btnStyle": { "gridArea": "2 / 4"} },
+    { "id": "multiply", "btnRole":"OPERATOR", "btnSymbol": "x", "btnKey": "*", "btnStyle": { "gridArea": "1 / 4"} },
+    { "id": "divide", "btnRole":"OPERATOR", "btnSymbol": "/", "btnKey": "/", "btnStyle": { "gridArea": "1 / 3"} },
+    { "id": "equal", "btnRole":"RESULT", "btnSymbol": "=", "btnKey": "=", "btnStyle": { "gridArea": "4 / 4 / 6 / 4"} },
+    { "id": "decimal", "btnRole":"MODIFIER", "btnSymbol": ".", "btnKey": ".", "btnStyle": { "gridArea": "5 / 3"} },
+    { "id": "negative", "btnRole":"MODIFIER", "btnSymbol": "+/-", "btnKey": "~", "btnStyle": { "gridArea": "5 / 1"} },
+    { "id": "clear", "btnRole":"RESET", "btnSymbol": "AC", "btnKey": "Escape", "btnStyle": { "gridArea": "1 / 1 / 1 / 3"} }
+]
