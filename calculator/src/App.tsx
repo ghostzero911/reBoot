@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from "react";
+import { useReducer } from "react";
 import InputProcessor, { State } from "./classes/InputProcessor.ts";
 import Display from "./components/Display.tsx";
 import Button from "./components/Button.tsx";
@@ -41,38 +41,17 @@ function App() {
   const [app, dispatch] = useReducer(buttonReducer, initialState);
 
   // Activate the function when user press specific key or click button
-  const activateButton = useCallback((e?: Event) => {
-    /* 
-    One thing to be noted is the general non-specific Event type as argument.
-    This approach used in consideration of future expansion such as adding new input trigger from user.
-    We could add the event type into the switch selector to catch the target triggered.
-    */
-    let buttonPressed: string | null = null;
-
-    switch (e?.type) {
-      case "keydown":
-        buttonPressed = (e as KeyboardEvent).key;
-        break;
-      case "click":
-        buttonPressed = (e.target as HTMLElement).getAttribute('data-key');
-        break;
-      default:
-        buttonPressed = null;
-    }
-
-    const allowedKeys: string[] = buttons.map(b => b.btnKey);
-
-    if (buttonPressed && allowedKeys.includes(buttonPressed)) {
+  const activateButton = (buttonPressed: string) => {
+    if (buttons.map(b => b.btnKey).includes(buttonPressed)) {
       // Get the user target button properties
       const [button] = buttons.filter(b => b.btnKey === buttonPressed);
       // Process and dispatch based on button role
       dispatch({ type: button.btnRole, id: button.id, key: button.btnKey });
     }
-
-  }, []);
+  };
 
   // Key press detection
-  useKeyboard(activateButton);
+  useKeyboard((e) => activateButton(e.key));
 
   return (
     <div id="calc-container">
@@ -80,7 +59,7 @@ function App() {
       <Display preview={app.expression} display={app.notation} />
       <div className="btn-container">
         {buttons.map((button, i) => (
-          <Button key={i} button={button} fnClick={activateButton} />
+          <Button key={i} button={button} fnClick={() => activateButton(button.btnKey)} />
         ))}
       </div>
     </div>

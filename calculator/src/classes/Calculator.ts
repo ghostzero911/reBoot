@@ -78,7 +78,6 @@ class Calculator {
       }
       outputQueue.push(op);
     }
-
     return outputQueue;
   }
 
@@ -136,7 +135,7 @@ class Calculator {
     const tokens: string[] = [];
 
     // --- Input sanitizer ---
-    // This step is important if the expression is typed manually in text field.
+    // This step only needed if the expression is manually inputted.
     // Clean the expression first
     expression = expression.replace(/\s+/g, ''); // Remove all whitespace
 
@@ -154,6 +153,7 @@ class Calculator {
 
     let lastTokenWasOperatorOrParen = true; // Assume start allows negative
     let currentPos = 0;
+
     while (currentPos < expression.length) {
       let tokenFound = false;
 
@@ -166,9 +166,10 @@ class Calculator {
       // |                       -> OR
       // [+\-*/()]               -> Match operators or parentheses
       // The 'g' flag makes it global (find all matches)
-      
-      if (numMatch && (numMatch[0] !== '-' || lastTokenWasOperatorOrParen)) {
-        // Allow '-' only if it's the start or follows an operator/paren
+
+      // Allow '-' only if it's the start or follows an operator/paren '('
+      if (numMatch && (!numMatch[0].startsWith('-') || (lastTokenWasOperatorOrParen || currentPos === 0))
+      ) {
         const numberToken = numMatch[0];
         tokens.push(numberToken);
         currentPos += numberToken.length;
@@ -180,19 +181,32 @@ class Calculator {
         if (/[+\-*/()]/.test(opOrParen)) {
           tokens.push(opOrParen);
           currentPos++;
-          lastTokenWasOperatorOrParen = (opOrParen !== ')'); // Closing paren is followed by number/operator
+          // Track if the token allows a subsequent negative number sign
+          lastTokenWasOperatorOrParen = (opOrParen !== ')' && /[+\-*/(]/.test(opOrParen));
           tokenFound = true;
         }
       }
 
       if (!tokenFound) {
-        console.error(`Error: Unexpected character or sequence starting at index ${currentPos}: "${expression.substring(currentPos)}"`);
+        console.error(`Tokenizer error: Cannot process character at index ${currentPos}: "${expression.substring(currentPos)}"`);
         return null; // Indicate tokenization error
       }
     }
 
-    // Basic validation after tokenization
-    if (tokens.length === 0 && expression.length > 0) return null; // Failed to tokenize non-empty string
+    // Final check: ensure last token isn't an operator (unless it's a full expression like '5')
+    if (tokens.length > 1 && this.isOperator(tokens[tokens.length - 1])) {
+      // Allow expression ending in closing parenthesis
+      if (tokens[tokens.length - 1] !== ')') {
+        console.error("Expression cannot end with an operator.");
+        return null;
+      }
+    }
+
+    if (tokens.length === 0 && expression.length > 0) {
+      console.error("Failed to tokenize non-empty expression.");
+      return null;
+    }
+
     if (tokens.some(t => t === undefined || t === null)) return null; // Check for bad tokens
 
     console.log("Tokens:", tokens); // For debugging

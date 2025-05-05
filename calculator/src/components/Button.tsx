@@ -3,17 +3,16 @@ export interface ButtonProps {
 		id: string,
 		btnRole: string,
 		btnSymbol: string,
-		btnKey: string,
 		btnStyle: React.CSSProperties
 	},
 	fnClick: () => void
 }
 
 function Button({ button, fnClick }: ButtonProps) {
-	const { id, btnSymbol, btnKey, btnStyle } = button;
+	const { id, btnSymbol, btnStyle } = button;
 
 	return (
-		<div className="btn-elegant" id={id} data-key={btnKey} style={btnStyle} onClick={fnClick}>
+		<div className="btn-elegant" id={id} style={btnStyle} onClick={fnClick}>
 			{btnSymbol}
 		</div>
 	)
